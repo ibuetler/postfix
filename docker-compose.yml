@@ -1,0 +1,24 @@
+version: "3.6"
+
+services:
+  postfix:
+    image: index.docker.io/catatnight/postfix:latest
+    hostname: postfix.localhost
+    restart: always
+    environment:
+      TZ: Europe/Zurich
+      # Uncomment to enable debugging messages:
+      #LOGXI: '*'
+      maildomain: hacking-lab.com
+      smtp_user: ivan.buetler:EBp5CJNcykf7cgmb,no-reply:FIj8qVxZXINXjJOC
+    volumes:
+      - ./dkim:/etc/opendkim/domainkeys
+      - ./certs:/etc/postfix/certs
+      - ./postfix/install.sh:/opt/install.sh
+    labels:
+      traefik.enable: false
+    ports:
+      - "25:25"
+      - "587:587"
+      - "25587:587"
+
