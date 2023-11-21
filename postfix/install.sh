@@ -65,6 +65,12 @@ chown postfix.sasl /etc/sasldb2
 ############
 # Enable TLS
 ############
+
+mkdir -p /etc/postfix/certs
+openssl req -newkey rsa:4096 -nodes -sha512 -x509 -days 3650 -subj "/C=CH/ST=SG/L=HL/O=HL/CN=postfix.local/emailAddress=postfix@localhost" \
+  -out /etc/postfix/certs/postfix.crt \
+  -keyout /etc/postfix/certs/postfix.key
+
 if [[ -n "$(find /etc/postfix/certs -iname *.crt)" && -n "$(find /etc/postfix/certs -iname *.key)" ]]; then
   echo "configuring ssl certs and keys"
   # /etc/postfix/main.cf
@@ -85,6 +91,10 @@ fi
 #############
 #  opendkim
 #############
+
+mkdir -p /etc/opendkim/domainkeys
+chown opendkim:opendkim /etc/opendkim/domainkeys
+opendkim-genkey -s mail -d hacking-lab.com --directory=/etc/opendkim/domainkeys
 
 if [[ -z "$(find /etc/opendkim/domainkeys -iname *.private)" ]]; then
   echo "opendkim is not configured"
