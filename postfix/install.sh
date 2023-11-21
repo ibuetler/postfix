@@ -94,7 +94,7 @@ fi
 
 mkdir -p /etc/opendkim/domainkeys
 chown opendkim:opendkim /etc/opendkim/domainkeys
-opendkim-genkey -s mail -d hacking-lab.com --directory=/etc/opendkim/domainkeys
+opendkim-genkey -s mail -d $maildomain --directory=/etc/opendkim/domainkeys
 
 if [[ -z "$(find /etc/opendkim/domainkeys -iname *.private)" ]]; then
   echo "opendkim is not configured"
