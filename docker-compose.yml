@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   postfix:
-    image: index.docker.io/catatnight/postfix:latest
+    image: catatnight/postfix:latest
     hostname: postfix.localhost
     restart: always
     environment:
@@ -12,8 +12,6 @@ services:
       maildomain: hacking-lab.com
       smtp_user: ivan.buetler:EBp5CJNcykf7cgmb,no-reply:FIj8qVxZXINXjJOC
     volumes:
-      - ./dkim:/etc/opendkim/domainkeys
-      - ./certs:/etc/postfix/certs
       - ./postfix/install.sh:/opt/install.sh
     labels:
       traefik.enable: false

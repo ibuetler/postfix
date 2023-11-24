@@ -1,17 +1,6 @@
 # Postfix Testing
-## Setup DKIM
-This will generate the dkim files
-```
-cd ./dkim
-./setup.sh
-```
 
-## Setup StartTLS certs
-This will generate the tls (startssl files)
-```
-cd ./certs
-./setup.sh
-```
+The setup procedure will generate a new public and private keypair for postfix communication and a new dkim keypair (hacking-lab.com) to sign mails.
 
 ## Start the Service
 ```
@@ -33,7 +22,7 @@ docker-compose exec postfix tail -f /var/log/mail.log
 
 ### Postfix will accept this - but GMAIL is not accepting it (mail does not look trustworthy for GMAIL)
 Port 25
-* ./smtptest.py -v -u ivan.buetler -p EBp5CJNcykf7cgmb ibuetler@hsr.ch ivan.buetler@gmail.com localhost$
+* ./smtptest.py -v -u ivan.buetler -p EBp5CJNcykf7cgmb ibuetler@hsr.ch ivan.buetler@gmail.com localhost
 
 Port 587 (Submission)
 * ./smtptest.py -v -n 587 -t -u ivan.buetler -p EBp5CJNcykf7cgmb ibuetler@hsr.ch ivan.buetler@gmail.com localhost
